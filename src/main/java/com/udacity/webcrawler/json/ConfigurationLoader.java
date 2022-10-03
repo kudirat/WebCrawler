@@ -30,22 +30,21 @@ public final class ConfigurationLoader {
    */
   public CrawlerConfiguration load() {
     // TODO: Fill in this method.
-    Reader reader = null;
-    try {
-       reader = Files.newBufferedReader(path);
+
+    try(Reader reader = Files.newBufferedReader(path)){
+      CrawlerConfiguration configuration = read(reader);
+      return configuration;
     } catch (IOException e) {
       System.out.println("EXCEPTION BOZO");
       e.printStackTrace();
     }
+//    try {
+//      reader.close();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
 
-    CrawlerConfiguration configuration = read(reader);
-    try {
-      reader.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return configuration;
+    return null;
   }
 
   /**
@@ -57,7 +56,7 @@ public final class ConfigurationLoader {
   public static CrawlerConfiguration read(Reader reader) {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(reader);
-    // TODO: Fill in this method
+
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.disable(JsonParser.Feature.AUTO_CLOSE_SOURCE);
     CrawlerConfiguration configuration = null;
@@ -66,7 +65,7 @@ public final class ConfigurationLoader {
       System.out.println(objectMapper);
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("EXCEPTION CAUGHT");
+      System.out.println("EXCEPTION CAUGHT BOZZOOOO!");
     }
 
     return configuration;

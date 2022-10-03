@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,17 +35,24 @@ public final class CrawlResultWriter {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(path);
     // TODO: Fill in this method.
-    Writer writer = null;
-    try {
-       writer = Files.newBufferedWriter(path);
-       write(writer);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+//    Writer writer = null;
+//    try {
+//       writer = Files.newBufferedWriter(path);
+//       write(writer);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//
+//    try {
+//      writer.close();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
 
-    try {
-      writer.close();
+    try(Writer writer = Files.newBufferedWriter(path)){
+      write(writer);
     } catch (IOException e) {
+      System.out.println("EXCEPTION BOZO");
       e.printStackTrace();
     }
   }
@@ -58,7 +66,6 @@ public final class CrawlResultWriter {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(writer);
     // TODO: Fill in this method.
-
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
     try {
