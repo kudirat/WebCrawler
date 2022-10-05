@@ -35,7 +35,7 @@ public final class ConfigurationLoader {
       CrawlerConfiguration configuration = read(reader);
       return configuration;
     } catch (IOException e) {
-      System.out.println("EXCEPTION BOZO");
+      System.out.println("EXCEPTION CAUGHT");
       e.printStackTrace();
     }
 //    try {
@@ -65,7 +65,7 @@ public final class ConfigurationLoader {
       System.out.println(objectMapper);
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("EXCEPTION CAUGHT BOZZOOOO!");
+      System.out.println("EXCEPTION CAUGHT!");
     }
 
     return configuration;

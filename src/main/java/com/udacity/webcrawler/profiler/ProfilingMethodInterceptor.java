@@ -21,7 +21,8 @@ final class ProfilingMethodInterceptor implements InvocationHandler {
 
 
   // TODO: You will need to add more instance fields and constructor arguments to this class.
-  ProfilingMethodInterceptor(Clock clock, ProfilingState state, Object delegate) {
+  ProfilingMethodInterceptor(
+          Clock clock, ProfilingState state, Object delegate) {
     this.clock = Objects.requireNonNull(clock); this.state = Objects.requireNonNull(state); this.delegate = Objects.requireNonNull(delegate);
   }
 

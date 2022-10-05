@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 
 /**
@@ -49,10 +50,10 @@ public final class CrawlResultWriter {
 //      e.printStackTrace();
 //    }
 
-    try(Writer writer = Files.newBufferedWriter(path)){
+    try(Writer writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.APPEND)){
       write(writer);
     } catch (IOException e) {
-      System.out.println("EXCEPTION BOZO");
+      System.out.println("Exception found.");
       e.printStackTrace();
     }
   }
