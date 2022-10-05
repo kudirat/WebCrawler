@@ -1,0 +1,67 @@
+Written Questions
+
+Q1. Run the web crawler using the configurations located at src/main/config/written_question_1a.json and
+    src/main/config/written_question_1b.json. The only difference between these configurations is that one always uses
+    the sequential crawler and the other always uses the parallel crawler. Inspect the profile output in
+    profileData.txt.
+
+    If you are using a multi-processor computer, you should notice that SequentialWebCrawler#crawl and
+    ParallelWebCrawler#crawl took about the same amount of time, but PageParserImpl#parse took much longer when run with
+    the ParallelWebCrawler.
+
+    Why did the parser take more time when run with ParallelWebCrawler?
+
+A. For the ParallelWebCrawler, more urls were reportedly visited than compared to the SequentialWebCrawler and I assume this is why it took more time.
+Since there are more threads running in parallel, it makes sense that parsing time for the collective threads will be more than in the SequentialWebCrawler.
+
+
+Q2. Your manager ran your crawler on her old personal computer, using the configurations from Q1, and she notices that
+    the sequential crawler actually outperforms the parallel crawler. She would like to know why.
+
+    (a) Suggest one reason why the sequential web crawler was able to read more web pages than the parallel crawler.
+        (Hint: Try setting "parallelism" to 1 in the JSON configs to simulate your manager's computer.)
+
+    (b) Suggest one scenario in which the parallel web crawler will almost certainly perform better than the sequential
+        crawler. Why will it perform better?
+
+A. (a) It's possible that her computer may not be a multi-processor one and having a process that uses less resources would be beneficial for the computer.
+	 A parallel process would gather more resources than one that were sequential. 
+
+   (b) The parallel web craweler would perform better than the sequential crawler in situations where there can be tasks than can be ran at the same time.
+	 I can imagine this could save time and allow the process itself to finish a lot faster.
+
+Q3. Analyze your method profiler through the lens of Aspect Oriented Programming, by answering the following questions:
+
+    (a) What cross-cutting concern is being addressed by the com.udacity.webcrawler.profiler.Profiler class?
+        
+	
+    (b) What are the join points of the Profiler in the web crawler program?
+
+A. (a) The profiler class addresses performance concern, in regards to how long a method call
+	 may take.
+   
+   (b) The join points of the Profiler in the web crawler program are the methods that have
+	 profiled annotated above them. 
+
+Q4. Identify three (3) different design patterns used in this project, and explain which interfaces, classes, and/or
+    libraries use or implement those design patterns.
+
+    For each pattern, name one thing about the pattern that you LIKED, and one thing you DISLIKED. If you did not like
+    anything, you can name two things you disliked.
+     
+    - Builder Pattern:
+      The Builder Pattern is used in the Page Parser class implementation to build an instance of a Page Parser Object,
+	which is later mass produced by the Abstract Factory. I like the fact that allows me to create immutable
+	objects. But I dislike how it results in writing more code. 
+
+
+    - Abstract Factory Pattern:
+	The Abstract Factory Pattern was used in the PageParserFactory class. It was used to create paage parser objects. 
+      I like how the developer has the freedom to have both fields that are accessible(i.e. url) and those that are protected
+      (i.e. ignoredurls). Something that I don't like about this pattern is since things are protected, it might be difficult
+	for adding additional fields and members. 
+	
+    - Dependency Injection:
+	This design pattern was used in the WebCrawlerMain class to inject objects such as the profiler, crawler, and others.
+	I like how I don't have to create the objects that I need for this class and I can just have them be injected and created.
+	I dislike how somewhat confusing it is to read.
