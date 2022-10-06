@@ -73,6 +73,13 @@ final class ProfilerImpl implements Profiler {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
+    try(FileWriter fileWriter = new FileWriter(path.toString(), true);
+        BufferedWriter writer = new BufferedWriter(fileWriter)){
+      writeData(writer);
+    } catch(IOException e){
+      e.printStackTrace();
+    }
   }
 
   @Override
